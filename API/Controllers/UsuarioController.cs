@@ -27,7 +27,7 @@ public class UsuarioController : ApiBaseController
     }
 
 
-    // [Authorize(Roles = "Administrador")]
+    [Authorize(Roles = "Administrador")]
     [HttpPost("register")]
     public async Task<ActionResult> RegisterAsync(RegisterDto model)
     {

@@ -10,7 +10,9 @@ public class MappingProfiles : Profile
 
     public MappingProfiles()
     {
-
+        CreateMap<Orden, OrdenRegDto>().ReverseMap();
+        CreateMap<Orden, OrdenSimpleDto>().ReverseMap();
+        CreateMap<Orden, OrdenDto>().ReverseMap();
     }
 
 }
