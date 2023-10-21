@@ -1,36 +1,34 @@
-:shipit: Veterinaria
+:shipit: Safe Clothing
 ==================================================
 
-Este repositorio contiene una APP ASP.NET llamada Veterinaria que busca cumplir una serie de requerimientos.
+Este repositorio contiene una APP Backend en ASP.NET llamada S.C.
 
 🎱 Requerimientos
 -------------------
 
 #### Endpoints requeridos
-1. Crear un consulta que permita visualizar los veterinarios cuya especialidad sea Cirujano vascular. ✔️
-2. Listar los medicamentos que pertenezcan a el laboratorio Genfar ✔️
-3. Mostrar las mascotas que se encuentren registradas cuya especie sea felina. ✔️
-4. Listar los propietarios y sus mascotas. ✔️
-5. Listar los medicamentos que tenga un precio de venta mayor a 50000 ✔️
-6. Listar las mascotas que fueron atendidas por motivo de vacunacion en el primer trimestre del 2023
-7. Listar todas las mascotas agrupadas por especie. ✔️
-8. Listar todos los movimientos de medicamentos y el valor total de cada movimiento. 
-9. Listar las mascotas que fueron atendidas por un determinado veterinario. ✔️
-10. Listar los proveedores que me venden un determinado medicamento.
-11. Listar las mascotas y sus propietarios cuya raza sea Golden Retriver
-12. Listar la cantidad de mascotas que pertenecen a una raza a una raza. Nota: Se debe mostrar una lista de las razas y la cantidad de mascotas que pertenecen a la raza.
+1. Listar los insumos que pertenecen a una prenda especifica. El usuario debe ingresar el código de la prenda.
+2. Listar los Insumos que son vendidos por un determinado proveedor cuyo tipo de persona sea Persona Jurídica. El usuario debe ingresar el Nit de proveedor.
+3. Listar todas las ordenes de producción cuyo estado se en proceso.
+4. Listar los empleados por un cargo especifico. Los cargos que se encuentran en la empresa son: Auxiliar de Bodega, Jefe de Producción, Corte, Jefe de bodega, Secretaria, Jefe de IT.
+5. Listar las ordenes de producción que pertenecen a un cliente especifico. El usuario debe ingresar el IdCliente y debe obtener la siguiente información:
+   ->IdCliente, Nombre, Municipio donde se encuentra ubicado.
+   ->Nro de orden de producción, fecha y el estado de la orden de producción (Se debe mostrar la descripción del estado, código del estado, valor total de la orden de producción.
+   ->Detalle de orden: Nombre de la prenda, Código de la prenda, Cantidad, Valor total en pesos y en dólares.
+6. Listar las ventas realizadas por un empleado especifico. El usuario debe ingresar el Id del empleado y mostrar la siguiente información.
+   ->Id Empleado
+   ->Nombre del empleado
+   ->Fecturas : Nro Factura, fecha y total de la factura.
+7. Listar los productos y tallas del inventario. La consulta debe mostrar el id del inventario, nombre del producto, tallas y cantidad de cada talla.
 
 #### Requerimientos Funcionales
 El proyecto de administración de veterinaria debe cumplir con los siguientes requerimientos funcionales:
 
-1. Autenticación y autorización:
-    - El sistema debe implementar protección en los endpoints utilizando JWT (JSON Web Tokens). El token tiene una duracion de 1 minuto. ✔️
-    - Se debe implementar refresh token. ✔️
-    - Debe restringir las peticiones a los endpoints según los roles de los usuarios. ✔️
-2. Se debe permitir realizar procesos de creacion, edicion, eliminacion y listado de informacion de cada una de las tablas ✔️
-3. El backend debe permitir restringir peticiones consecutivos usando tecnicas de limitacion por IP. ✔️
-4. El backend debe permitir realizar la paginacion en  las peticiones get de todos los controladores.
-5. Los controladores deben implementar 2 versiones diferentes (Query y Header)
+1. Implementar restricción de peticiones haciendo uso de limitaciones de peticiones por IP.
+2. Implementar protección a los endPoints haciendo uso de JWT y roles de usuario.
+3. Implementar esquema de versionado de Api que facilite el proceso de implementación de nuevos endpoints sin afectar el funcionamiento de las aplicaciones externas que consumen los servicios del Api.
+4. Implementar endpoints que permitan realizar el proceso de CRUD en cada uno de los controladores del backend.
+5. Debido al gran volumen de información que la empresa procesa diariamente se requiere que los endpoints encargados de consultar el contenido de las tablas implementen sistema de paginación.
 
 🔧 Instalación
 -------------------
@@ -48,68 +46,3 @@ Antes de poder hacer consultas debemos loguearnos.
       "Password": "admin"
     }
 ```
-Usaremos este token para todas las consultas.
-
-Esta app implementa un sistema estándar de CRUD para todas las entidades:
-```
-  GET api/{controlador}/listar
-```
-```
-  POST api/{controlador}/crear
-```
-```
-  PUT api/{controlador}/actualizar/{id}
-```
-```
-  DELETE api/{controlador}/eliminar/{id}
-```
-NOTA** Debemos tener en cuenta que, al momento de CREAR y ACTUALIZAR, debemos devolver una estructura idéntica a la obtenida cuando listamos.
-
-### ENDPOINTS ESPECÍFICOS
-1. Crear un consulta que permita visualizar los veterinarios cuya especialidad sea Cirujano vascular.
-NOTA** Los espacios se definen con '%' en la URL
-```
-  GET api/veterinario/listarXEspecialidad/{especialidad}
-  GET api/veterinario/listarXEspecialidad/Cirujano%Cardiovascular
-```
-![image](https://github.com/adrianAraqueG/dotnet_veterinaria/assets/79146629/6a94d891-dbc0-438e-9ba9-347ae34031cd)
-
-2. Listar los medicamentos que pertenezcan a el laboratorio Genfar
-```
-  GET api/medicamento/listarPorLaboratorio/{Laboratorio}
-  GET api/medicamento/listarPorLaboratorio/Genfar
-```
-![image](https://github.com/adrianAraqueG/dotnet_veterinaria/assets/79146629/f314e215-09ad-439a-baca-e6c92c97750c)
-
-3. Mostrar las mascotas que se encuentren registradas cuya especie sea felina.
-```
-  GET api/mascota/listarPorEspecie/{especie}
-  GET api/mascota/listarPorEspecie/felina
-```
-![image](https://github.com/adrianAraqueG/dotnet_veterinaria/assets/79146629/2d3e1bb6-52f3-479f-a591-4f78cf1d86e6)
-
-4. Listar los propietarios y sus mascotas.
-```
-  GET api/propietario/listarPropsConMascotas
-```
-![image](https://github.com/adrianAraqueG/dotnet_veterinaria/assets/79146629/8935ce7f-e656-4001-8c20-440aa6eca8c9)
-
-
-5. Listar los medicamentos que tenga un precio de venta mayor a 50000
-```
-  GET api/medicamento/listarPrecioMayorA/{precio}
-  GET api/medicamento/listarPrecioMayorA/50000
-```
-![image](https://github.com/adrianAraqueG/dotnet_veterinaria/assets/79146629/882b3772-e9bb-4f54-9387-a2c3660d353c)
-
-7. Listar todas las mascotas agrupadas por especie.
-```
-  GET api/mascota/listarAgrupacionPorEspecie
-```
-![image](https://github.com/adrianAraqueG/dotnet_veterinaria/assets/79146629/4f3997ad-623b-4487-8596-55eb7764a727)
-
-9. Listar las mascotas que fueron atendidas por un determinado veterinario.
-```
-  GET api/mascota/listarXVeterinario/{IdVeterinario}
-```
-![image](https://github.com/adrianAraqueG/dotnet_veterinaria/assets/79146629/865169fb-d3cd-4ddc-99e7-6ca7a9c9e62f)
